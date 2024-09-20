@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "843fdf46-2174-45f4-8953-ba72b248d889",
+		"name": "KeyConsulting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15035041",
+		"_collection_link": "https://alorfaim.postman.co/workspace/Alorfaim~e588d5f3-93bb-4fca-bc1a-112c50ec80ad/collection/15035041-843fdf46-2174-45f4-8953-ba72b248d889?action=share&source=collection_link&creator=15035041"
+	},
+	"item": [
+		{
+			"name": "CreateTasks",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"label\": \"task\",\n    \"description\": \"This is a task\",\n    \"completed\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/task-service/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"task-service",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/task-service/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"task-service",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetToDoTasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/task-service/tasks?isCompleted=false",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"task-service",
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "isCompleted",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PatchTaskStatus",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"2\",\n    \"completed\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/task-service/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"task-service",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

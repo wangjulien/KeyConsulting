@@ -1,0 +1,14 @@
+package com.keyconsulting.taskservice.config;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class BusinessConfig {
+    @Bean
+    public ModelMapper modelMapper() {
+        // Customized configuration of modelMapper
+        return new ModelMapper();
+    }
+}
