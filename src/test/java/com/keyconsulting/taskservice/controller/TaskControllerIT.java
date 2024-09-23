@@ -161,7 +161,7 @@ public class TaskControllerIT {
 
     @Test
     @Transactional
-    void createTaskShouldSucceed() throws Exception {
+    void createOrUpdateTaskShouldSucceed() throws Exception {
         // Given
         var taskDTO = TaskDTO.builder()
                 .label(UUID.randomUUID().toString())

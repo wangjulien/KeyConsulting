@@ -39,10 +39,12 @@ public class TaskService {
                 .orElseThrow(() -> new EntityNotFoundException("Task with ID " + id + " can not be found"));
     }
 
-    public TaskDTO createTask(TaskDTO createTaskDTO) {
+    public TaskDTO createOrUpdateTask(TaskDTO createTaskDTO) {
         var taskEntity = modelMapper.map(createTaskDTO, TaskEntity.class);
         // Created task should NOT be completed by default
-        taskEntity.setCompleted(false);
+        if (null == createTaskDTO.getId()) {
+            taskEntity.setCompleted(false);
+        }
         return mapEntityToDto(taskRepository.save(taskEntity));
     }
 

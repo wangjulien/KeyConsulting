@@ -36,9 +36,9 @@ public class TaskController {
 
 
     @PostMapping
-    public ResponseEntity<TaskDTO> createTask(@Valid @RequestBody TaskDTO taskDTO) {
+    public ResponseEntity<TaskDTO> createOrUpdateTask(@Valid @RequestBody TaskDTO taskDTO) {
         log.info("Create task {}", taskDTO);
-        var task = taskService.createTask(taskDTO);
+        var task = taskService.createOrUpdateTask(taskDTO);
         log.info("Task {} created", task.getId());
         return ResponseEntity.ok(task);
     }
