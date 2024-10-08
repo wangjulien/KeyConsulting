@@ -161,7 +161,7 @@ public class TaskControllerIT {
 
     @Test
     @Transactional
-    void createOrUpdateTaskShouldSucceed() throws Exception {
+    void createTaskShouldSucceed() throws Exception {
         // Given
         var taskDTO = TaskDTO.builder()
                 .label(UUID.randomUUID().toString())
@@ -202,7 +202,7 @@ public class TaskControllerIT {
 
         // Then
         var response = taskMockMvc
-                .perform(patch(TASK_ENDPOINT)
+                .perform(patch(TASK_ID_ENDPOINT, task.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(patchTaskDTO)))
                 .andExpect(status().isOk())
@@ -230,15 +230,16 @@ public class TaskControllerIT {
         // Then without ID
         var patchTaskDTO = new PatchTaskDTO();
         taskMockMvc
-                .perform(patch(TASK_ENDPOINT)
+                .perform(patch(TASK_ID_ENDPOINT, task.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(patchTaskDTO)))
                 .andExpect(status().isBadRequest());
 
         // Then ID not exists
-        patchTaskDTO = new PatchTaskDTO(task.getId() + 100, !task.isCompleted()); // ID not exists
+        var notExistId = task.getId() + 100;
+        patchTaskDTO = new PatchTaskDTO(notExistId, !task.isCompleted()); // ID not exists
         var response = taskMockMvc
-                .perform(patch(TASK_ENDPOINT)
+                .perform(patch(TASK_ID_ENDPOINT, notExistId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(patchTaskDTO)))
                 .andExpect(status().isNotFound())
@@ -265,7 +266,7 @@ public class TaskControllerIT {
 
         // Then
         var response = taskMockMvc
-                .perform(patch(TASK_ENDPOINT)
+                .perform(patch(TASK_ID_ENDPOINT, task.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(patchTaskDTO)))
                 .andExpect(status().isOk())

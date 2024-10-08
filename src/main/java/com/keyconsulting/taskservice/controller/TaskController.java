@@ -36,16 +36,29 @@ public class TaskController {
 
 
     @PostMapping
-    public ResponseEntity<TaskDTO> createOrUpdateTask(@Valid @RequestBody TaskDTO taskDTO) {
+    public ResponseEntity<TaskDTO> createTask(@Valid @RequestBody TaskDTO taskDTO) {
         log.info("Create task {}", taskDTO);
         var task = taskService.createOrUpdateTask(taskDTO);
         log.info("Task {} created", task.getId());
         return ResponseEntity.ok(task);
     }
 
-    @PatchMapping
-    public ResponseEntity<TaskDTO> patchTask(@Valid @RequestBody PatchTaskDTO taskDTO) {
+    @PutMapping("/{id}")
+    public ResponseEntity<TaskDTO> updateTask(@PathVariable Long id, @RequestBody TaskDTO taskDTO) {
+        log.info("Update task {}", taskDTO);
+        taskDTO.setId(id);
+        var task = taskService.createOrUpdateTask(taskDTO);
+        log.info("Task {} updated", task.getId());
+        return ResponseEntity.ok(task);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<TaskDTO> patchTask(@PathVariable Long id, @Valid @RequestBody PatchTaskDTO taskDTO) {
         log.info("Patch task {}", taskDTO);
+        if (!id.equals(taskDTO.getId())) {
+            throw new IllegalArgumentException("Task id mismatch");
+        }
+
         var task = taskService.patchTaskStatus(taskDTO);
         return ResponseEntity.ok(task);
     }
